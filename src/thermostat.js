@@ -7,6 +7,7 @@ const MAX_TEMP_PSM = 25;
 function Thermostat(){
   this.currentTemperature = STARTING_TEMPERATURE;
   this.powersavingmode = true;
+  this.energyUsage = "Medium Energy Usage"
 };
 
 Thermostat.prototype.increaseTemp = function() {
@@ -21,6 +22,7 @@ Thermostat.prototype.increaseTemp = function() {
     }
   }
   this.currentTemperature++
+  this._calculateEnergyUsage();
 };
 
 Thermostat.prototype.decreaseTemp = function() {
@@ -28,6 +30,7 @@ Thermostat.prototype.decreaseTemp = function() {
     throw new Error("Minimum temperature is 10°C");
   }
   this.currentTemperature--
+  this._calculateEnergyUsage();
 };
 
 Thermostat.prototype.resetTemp = function() {
@@ -37,3 +40,37 @@ Thermostat.prototype.resetTemp = function() {
 Thermostat.prototype.powerSavingSwitch = function() {
   this.powersavingmode ? this.powersavingmode = false : this.powersavingmode = true
 };
+
+Thermostat.prototype._calculateEnergyUsage = function() {
+  switch (true) {
+    case (this.currentTemperature <= 18 ):
+      this.energyUsage = "Low Energy Usage";
+      break;
+    case (this.currentTemperature >= 26):
+        this.energyUsage = "High Energy Usage";
+        break;
+    default:
+      this.energyUsage = "Medium Energy Usage";
+  }
+};
+
+// Thermostat.prototype._calculateEnergyUsage = function() {
+//   switch (this.currentTemperature) {
+//     case (this.currentTemperature <= 18 ):
+//       this.energyUsage = "Low Energy Usage";
+//       break;
+//     case (this.currentTemperature >= 19 && this.currentTemperature <= 25 ):
+//
+//     case (this.currentTemperature >= 26):
+//       this.energyUsage = "High Energy Usage";
+//       break;
+//   }
+// };
+
+// if (this.currentTemperature <= 18 ){
+//   this.energyUsage = "Low Energy Usage";
+// } else if (this.currentTemperature >= 26) {
+//   this.energyUsage = "High Energy Usage";
+// } else {
+//   this.energyUsage = "Medium Energy Usage";
+// }

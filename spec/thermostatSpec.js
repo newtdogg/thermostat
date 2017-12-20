@@ -49,4 +49,26 @@ describe("Thermostat", function() {
       expect(function() { thermostat.increaseTemp() }).toThrowError("Maximum temperature is 25°C with Power Saving Mode on")
     });
   });
+
+  describe("Power Usage Modes", function() {
+    it("Enters Low Energy Usage Mode when 18°C and below", function() {
+      for (var i=1; i <= 2; i++) thermostat.decreaseTemp();
+      expect(thermostat.energyUsage).toEqual("Low Energy Usage")
+      for (var i=1; i <= 8; i++) thermostat.decreaseTemp();
+      expect(thermostat.energyUsage).toEqual("Low Energy Usage")
+    });
+    it("Enters Medium Energy Usage Mode when between 19°C and 25°C", function() {
+      thermostat.decreaseTemp();
+      expect(thermostat.energyUsage).toEqual("Medium Energy Usage")
+      for (var i=1; i <= 6; i++) thermostat.increaseTemp();
+      expect(thermostat.energyUsage).toEqual("Medium Energy Usage")
+    });
+    it("Enters High Usage Mode when 26°C and above", function() {
+      thermostat.powerSavingSwitch();
+      for (var i=1; i <= 6; i++) thermostat.increaseTemp();
+      expect(thermostat.energyUsage).toEqual("High Energy Usage")
+      for (var i=1; i <= 6; i++) thermostat.increaseTemp();
+      expect(thermostat.energyUsage).toEqual("High Energy Usage")
+    });
+  });
 });
