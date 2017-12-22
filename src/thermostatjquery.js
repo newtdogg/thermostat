@@ -5,6 +5,19 @@ window.onload = function() {
 
 updatepage = function() {
   $("#temp").html(thermostat.currentTemperature)
+  $("#usage").css("background-color", usageColour)
+  $("#usagename").html(thermostat.energyUsage)
+}
+
+
+usageColour = function(){
+    if (thermostat.energyUsage === "Medium Energy Usage"){
+      return "gold"
+    } else if (thermostat.energyUsage === "High Energy Usage"){
+      return "red"
+    } else {
+      return "green"
+    }
 }
 
 function reset() {
