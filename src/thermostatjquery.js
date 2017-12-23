@@ -7,8 +7,16 @@ updatepage = function() {
   $("#temp").html(thermostat.currentTemperature)
   $("#usage").css("background-color", usageColour)
   $("#usagename").html(thermostat.energyUsage)
+  $("#usagebutton").css("background", powersavermode)
 }
 
+function powersavermode() {
+  if (thermostat.powersavingmode === true) {
+    return "#ccff99"
+  } else {
+    return "grey"
+  }
+}
 
 usageColour = function(){
     if (thermostat.energyUsage === "Medium Energy Usage"){
